@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>NaturalistGimmick</title>
+</head>
+<style>
+    .search-box {
+        border-width: 1px;
+
+    }
+    body, html {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+    .row{
+        display: flex;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+
+        width: 1820px;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        padding: 30px 50px;
+
+
+        background-color: darkgreen;
+        color: aliceblue;
+
+    }
+    .block1 {
+        display: flex;
+
+        justify-content: center;
+        align-content: center;
+        padding: 50px 30px;
+        width: 500px;
+
+        background-color: darkgreen;
+        color: aliceblue;
+
+        position: absolute;
+        left: 300px;
+        top: 1200px;
+
+
+        border-style: solid;
+        border-radius: 15px;
+    }
+    .button{
+        transition-duration: 0.5s;
+        border-radius: 6px;
+        color: black;
+        padding: 10px 15px;
+        border: none;
+        text-align: center;
+    }
+    .button:hover{
+        background-color: black;
+        color: white;
+
+    }
+    .block2 {
+        display: flex;
+
+        justify-content: center;
+        align-content: center;
+        padding: 50px 30px;
+        width: 500px;
+
+        background-color: darkgreen;
+        color: aliceblue;
+
+        position: absolute;
+        right: 300px;
+        top: 1200px;
+
+        border-style: solid;
+        border-radius: 15px;
+    }
+
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .image{
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100vw;
+        height: 400px;
+        object-fit: cover;
+
+
+    }
+
+    .text{
+        display: flex;
+        position: absolute;
+        top: -12px;
+        left: 17px;
+        font-family: "Corbel Light",cursive;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+
+
+    }
+
+</style>
+
+<!--los divs son contenedores, van dentro del body, solo un body -->
+
+<body>
+    <div class = "row">
+        <h1 class = "text"> Naturalist CR </h1>
+    </div>
+
+    <div class = block1>
+        <form th:action = "@{home/reportObservation}" method = "get">
+            <button th:class="button"> Report an observation! </button>
+        </form>
+    </div>
+    <div class = block2>
+        <form th:action = "@{home/helpIdentify}" method = "get">
+            <button th:class = "button"> Help with identifications!</button>
+        </form>
+
+    </div>
+    <img src="http://localhost:8080/si.jpg" class = "image" alt="banner"/>
+
+    <!--<div class = "center">
+        <h1> Naturalist Gimmick</h1>
+        <form th:action="@{search}" method = "get" class = "search-box" >
+            <label>
+                <input type= "text" name = "query" placeholder="Search something...">
+            </label>
+            <button> Search </button>
+        </form>
+    </div>-->
+</body>
+</html>
