@@ -54,14 +54,18 @@
     }
     .button{
         transition-duration: 0.5s;
+
         border-radius: 6px;
         color: black;
+        font-family: "Corbel Light", cursive;
+        background-color: white;
         padding: 10px 15px;
         border: none;
         text-align: center;
     }
     .button:hover{
         background-color: black;
+
         color: white;
 
     }
@@ -123,12 +127,12 @@
 
     <div class = block1>
         <form th:action = "@{home/reportObservation}" method = "get">
-            <button th:class="button"> Report an observation! </button>
+            <button class="button"> Report an observation! </button>
         </form>
     </div>
     <div class = block2>
         <form th:action = "@{home/helpIdentify}" method = "get">
-            <button th:class = "button"> Help with identifications!</button>
+            <button class = "button"> Help with identifications!</button>
         </form>
 
     </div>
