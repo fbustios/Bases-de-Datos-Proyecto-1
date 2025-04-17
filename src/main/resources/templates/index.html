@@ -17,6 +17,7 @@
     }
     .row{
         display: flex;
+        flex-direction: row;
         position: absolute;
         top: 0;
         left: 0;
@@ -33,35 +34,19 @@
         color: aliceblue;
 
     }
-    .block1 {
-        display: flex;
 
-        justify-content: center;
-        align-content: center;
-        padding: 50px 30px;
-        width: 500px;
-
-        background-color: darkgreen;
-        color: aliceblue;
-
-        position: absolute;
-        left: 300px;
-        top: 1200px;
-
-
-        border-style: solid;
-        border-radius: 15px;
-    }
     .button{
         transition-duration: 0.5s;
-
         border-radius: 6px;
         color: black;
         font-family: "Corbel Light", cursive;
+        font-weight: bold;
+        font-size: 15px;
         background-color: white;
-        padding: 10px 15px;
+        padding: 17px 21px;
         border: none;
-        text-align: center;
+
+        align-self: flex-end;
     }
     .button:hover{
         background-color: black;
@@ -69,30 +54,55 @@
         color: white;
 
     }
-    .block2 {
+    .block1 {
         display: flex;
+        flex-direction: column;
+        align-items: center;
 
-        justify-content: center;
-        align-content: center;
         padding: 50px 30px;
         width: 500px;
+        min-height: 600px;
+
+        background-color: darkgreen;
+        color: aliceblue;
+
+        position: absolute;
+        left: 300px;
+        top: 700px;
+
+
+        border-style: solid;
+        border-radius: 15px;
+        border-color: black;
+    }
+    .block2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        padding: 50px 30px;
+        width: 500px;
+        min-height: 600px;
 
         background-color: darkgreen;
         color: aliceblue;
 
         position: absolute;
         right: 300px;
-        top: 1200px;
+        top: 700px;
 
         border-style: solid;
         border-radius: 15px;
+        border-color: black;
     }
 
     .center {
         display: flex;
-        justify-content: center;
+        position: relative;
+        top: 500px;
+        width: 100vw;
         align-items: center;
-        flex-direction: column;
+        justify-content: center;
     }
     .image{
         position: absolute;
@@ -101,19 +111,59 @@
         width: 100vw;
         height: 400px;
         object-fit: cover;
-
-
+    }
+    .image2{
+        position: absolute;
+        top: 1500px;
+        width: 100vw;
+        height: 400px;
+        object-fit: cover;
     }
 
+    .playground{
+        position: absolute;
+        top: 1900px;
+        left: 0;
+        width: 100vw;
+        height: 650px;
+        background-color: beige;
+    }
     .text{
         display: flex;
         position: absolute;
         top: -12px;
-        left: 17px;
+        left: 30px;
+        font-family: "Corbel Light", cursive;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    .textstyle1{
         font-family: "Corbel Light",cursive;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        text-align: justify;
+    }
+    .instructions{
+        color: black;
+        font-size: 50px;
+        font-weight: bold;
+    }
+    .infotext{
+        font-size: 20px;
+    }
+    .resize{
+        width: 100px;
+        height: 100px;
+    }
+    .top{
+        position: absolute;
+        top: -3px;
+        background-color: white;
+        width: 500px;
+        padding: 29px 29px;
 
-
+        border-style: solid;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        border-color: black;
     }
 
 </style>
@@ -125,19 +175,42 @@
         <h1 class = "text"> Naturalist CR </h1>
     </div>
 
+    <div class = "center">
+        <h1 class = "textstyle1 instructions"> Que puedes hacer en Naturalist CR?</h1>
+    </div>
+
     <div class = block1>
+        <div class = "top"></div>
+        <h1 class = "textstyle1"> Observar </h1>
+        <img src="http://localhost:8080/identificar.png" class ="resize" alt ="id">
+
+        <h2 class = "textstyle1 infotext"> ¿Te has encontrado con una criatura única en la naturaleza costarricense? ¡Queremos saberlo! Costa Rica es hogar de una increíble biodiversidad, y tu observación podría ser invaluable para aprender más sobre nuestros ecosistemas. Al compartir tu avistamiento en nuestro sitio web, no solo ayudas a
+            enriquecer el conocimiento de nuestra fauna, sino que también participas en la conservación de estos maravillosos seres.</h2>
+
         <form th:action = "@{home/reportObservation}" method = "get">
             <button class="button"> Report an observation! </button>
         </form>
     </div>
     <div class = block2>
+        <div class = "top"></div>
+        <h1 class = "textstyle1"> Identificar </h1>
+        <img src="http://localhost:8080/observar.png" class = "resize" alt ="obs">
+
+        <h2 class = "textstyle1 infotext"> ¿Te apasiona la biodiversidad de Costa Rica? ¡Esta es tu oportunidad para contribuir! Navega por las publicaciones de avistamientos de animales en nuestra página y ayúdanos a identificar las especies correctamente.
+            Cada avistamiento es una ventana a la rica fauna de nuestro país, y tu conocimiento puede ser clave para asegurar que se reconozcan las especies de manera precisa.
+            Si ves un avistamiento que sabes qué especie es, ¡deja tu comentario y comparte tu conocimiento!</h2>
+
         <form th:action = "@{home/helpIdentify}" method = "get">
             <button class = "button"> Help with identifications!</button>
         </form>
 
     </div>
     <img src="http://localhost:8080/si.jpg" class = "image" alt="banner"/>
+    <img src="http://localhost:8080/panda.webp" class = "image2" alt ="banner2"/>\
+    <div class = "playground">
 
+
+    </div>
     <!--<div class = "center">
         <h1> Naturalist Gimmick</h1>
         <form th:action="@{search}" method = "get" class = "search-box" >

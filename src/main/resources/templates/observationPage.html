@@ -4,11 +4,44 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+    }
+    .block {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+    .box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 100px;
+        background-color: chartreuse;
+        border-radius: 5px;
+    }
+</style>
 <body>
-    <form th:action = "@{home/reportObservation}" method = "post">
-        <label>
-            <input type = "text" name = "nose" placeholder="Defina algo">
-        </label>
-    </form>
+    <div class = "block">
+
+        <div class = "box">
+            <form th:action = "@{home/reportObservation}" method = "post">
+                <label>
+                <input type = "text" name = "taxon" placeholder="Nombre del taxon...">
+                </label>
+                <br>
+                <label>
+                    <input type = "text" name = 'fecha' placeholder = "Fecha...">
+                </label>
+                <br>
+                <label>
+                    <input type = "file" name = "imagen" placeholder = "Imagen...">
+                </label>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
