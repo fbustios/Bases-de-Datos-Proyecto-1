@@ -1,13 +1,15 @@
 package com.example.proyectobd.Model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(schema = "reportes")
+@Table
 public class Observation {
+
     @Id
-    int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+
 }

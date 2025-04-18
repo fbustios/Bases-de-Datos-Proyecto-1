@@ -10,36 +10,50 @@
         margin: 0;
     }
     .block {
+        background-image: url("http://localhost:8080/fondo.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;
         display: flex;
         align-items: center;
         justify-content: center;
         height: 100vh;
     }
+    .input-{
+       border-radius: 25px;
+        padding: 7px;
+
+       border: none;
+    }
     .box {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 100px;
-        background-color: chartreuse;
-        border-radius: 5px;
+        padding: 70px;
+        background-color: #2a2a29;
+        border-radius: 10px;
     }
 </style>
 <body>
     <div class = "block">
 
         <div class = "box">
-            <form th:action = "@{home/reportObservation}" method = "post">
+            <form th:action = "@{/home/reportObservation}" method = "post">
                 <label>
-                <input type = "text" name = "taxon" placeholder="Nombre del taxon...">
+                <input type = "text" name = "taxon" class="input-" placeholder="Nombre del taxon...">
                 </label>
-                <br>
+                <br> <br>
                 <label>
-                    <input type = "text" name = 'fecha' placeholder = "Fecha...">
+                    <input type = "text" name = "direccion" class="input-" placeholder = "Direccion...">
                 </label>
-                <br>
+                <br> <br>
                 <label>
-                    <input type = "file" name = "imagen" placeholder = "Imagen...">
+                    <input type = "file" name = "imagen" class = "input-" placeholder = "Imagen...">
                 </label>
+                <label>
+                    <input type = "date" name = "fecha" class = "input-" placeholder = "Fecha">
+                </label>
+                <br> <br>
+                <button class = "button"> Submit </button>
             </form>
         </div>
     </div>
