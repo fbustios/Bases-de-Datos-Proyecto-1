@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -11,12 +13,12 @@ import lombok.Setter;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private String nombre;
 
     @Column(name = "primer_apellido")
-    private String primer_apellido;
+    private String primero;
 
     @Column(name = "país")
     private String pais;
@@ -28,5 +30,11 @@ public class User {
     private String correo;
 
     @Column(name = "segundo_apellido")
-    private String segundo_apellido;
+    private String segundo;
+
+    @OneToMany
+    List<Observacion> observaciones;
+
+    @OneToMany
+    List<Image> imagenes;
 }

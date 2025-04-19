@@ -39,15 +39,24 @@
         <div class = "box">
             <form th:action = "@{/home/reportObservation}" method = "post">
                 <label>
-                <input type = "text" name = "taxon" class="input-" placeholder="Nombre del taxon...">
+                    <input type = "text" name = "usuario" class="input-" placeholder="Nombre de usuario">
+                </label>
+                <label>
+                <input type = "text" name = "taxon" class="input-" placeholder="Nombre del taxon">
                 </label>
                 <br> <br>
                 <label>
-                    <input type = "text" name = "direccion" class="input-" placeholder = "Direccion...">
+                    <input type = "text" name = "latitud" class="input-" placeholder = "Latitud">
+                </label>
+                <label>
+                    <input type = "text" name = "longitud" class="input-" placeholder = "Longitud">
+                </label>
+                <label>
+                    <input type = "text" name = "comentario" class="input-" placeholder = "Comentario">
                 </label>
                 <br> <br>
                 <label>
-                    <input type = "file" name = "imagen" class = "input-" placeholder = "Imagen...">
+                    <input type = "file" name = "imagen" class = "input-" placeholder = "Imagen">
                 </label>
                 <label>
                     <input type = "date" name = "fecha" class = "input-" placeholder = "Fecha">
