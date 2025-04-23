@@ -7,4 +7,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface ObservationRepository extends JpaRepository<Observacion,Long> {
+
 }

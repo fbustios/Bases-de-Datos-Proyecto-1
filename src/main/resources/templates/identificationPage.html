@@ -3,13 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <form method = "post">
-        <label>
-            <input type = "text" name = "na" placeholder="Identifique algo">
-        </label>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background-color: #000;
+    }
 
-    </form>
+    .esquinar {
+        background-image: url("http://localhost:8080/oso_polar.jpeg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        padding: 2rem;
+    }
+
+    .tabla-container {
+        width: 90%;
+        max-width: 900px;
+        background: rgba(26, 26, 26, 0.9);
+        border-radius: 16px;
+
+        overflow: hidden;
+        padding: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        color: white;
+    }
+
+    tr {
+        background-color: transparent;
+        transition: background-color 0.3s;
+    }
+
+    tr:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    td {
+        padding: 1rem;
+        border-bottom: 1px solid #444;
+        text-align: left;
+    }
+
+    button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    input[type="hidden"] {
+        display: none;
+    }
+</style>
+
+<body>
+    <div class = "esquinar">
+        <div class = "tabla-container">
+            <table>
+                <tr th:each = "o : ${observaciones}">
+                    <td th:text = "${o.getUser().getNombre()}"></td>
+                    <td th:text = "${o.getTaxon().getNombre()}"></td>
+                    <td th:text = "${o.getComentario()}"> </td>
+                    <td>
+
+                        <form th:action = "@{/home/helpIdentify/makeId}">
+                            <input type = "hidden" name = "id" th:value = "${o.getId()}">
+                            <button>Asignar identificación</button>
+                        </form>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+    </div>
+|   <script>
+
+    </script>
 </body>
 </html>

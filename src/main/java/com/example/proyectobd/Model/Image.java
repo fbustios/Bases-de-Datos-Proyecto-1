@@ -37,8 +37,16 @@ public class Image {
 
     private String url;
 
-    Image(){
-
+    public Image(){}
+    public Image(User us, Taxon taxon, String lon, String lat, LocalDate fec, String licencia, String url, User dueño){
+        this.user = us;
+        this.taxon = taxon;
+        this.fecha = fec;
+        this.longitud = lon;
+        this.latitud = lat;
+        this.licencia = licencia;
+        this.url = url;
+        this.dueño = dueño;
     }
 
 }

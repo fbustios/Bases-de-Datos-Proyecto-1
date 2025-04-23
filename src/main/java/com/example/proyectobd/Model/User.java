@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -32,9 +33,19 @@ public class User {
     @Column(name = "segundo_apellido")
     private String segundo;
 
-    @OneToMany
-    List<Observacion> observaciones;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Observacion> observaciones = new ArrayList<>();
 
-    @OneToMany
-    List<Image> imagenes;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Image> imagenes = new ArrayList<>();
+
+    public void addObservacion(Observacion o) {
+        observaciones.add(o);
+        o.setUser(this);
+    }
+
+    public void addImage(Image img){
+        imagenes.add(img);
+        img.setUser(this);
+    }
 }

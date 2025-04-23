@@ -1,22 +1,34 @@
 package com.example.proyectobd;
+import com.example.proyectobd.Model.Image;
 import com.example.proyectobd.Model.Observacion;
 import com.example.proyectobd.Model.Taxon;
 import com.example.proyectobd.Model.User;
-import com.example.proyectobd.Repositories.TaxonRepository;
-import com.example.proyectobd.Repositories.UserRepository;
+
 import com.example.proyectobd.Service.ObservationService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import java.io.File;
-import java.sql.Date;
+import org.springframework.web.multipart.MultipartFile;
+
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
 import java.time.LocalDate;
-import java.util.Optional;
+
+import java.util.UUID;
 
 
 @Controller
 public class ObservationController {
+    private final ObservationService observationService;
 
+    ObservationController(ObservationService os){
+        this.observationService=os;
+    }
 
     @PostMapping("home/reportObservation")
     public String addObservation(@RequestParam("usuario") String nombre,
@@ -24,29 +36,31 @@ public class ObservationController {
                                  @RequestParam("latitud") String latitud,
                                  @RequestParam("longitud") String longitud,
                                  @RequestParam("comentario") String comentario,
-                                 @RequestParam("imagen") File imagen,
+                                 @RequestParam("imagen") MultipartFile imagen,
                                  @RequestParam("fecha") @DateTimeFormat(pattern = "dd/mm/yyyy") LocalDate fecha
                                  ){
         try{
-            Observacion nuevaObservacion = new Observacion();
             User user = observationService.findUserByFullName(nombre);
-            nuevaObservacion.setUser(user);
-            nuevaObservacion.setLatitud(latitud);
-            nuevaObservacion.setLongitud(longitud);
-            nuevaObservacion.setComentario(comentario);
-            nuevaObservacion.setTaxon(observationService.findTaxonByName(taxon));
-            nuevaObservacion.setFecha(fecha);
-            user.getObservaciones().add(nuevaObservacion);
+            Taxon tax = observationService.findTaxonByName(taxon);
+            observationService.reportObservation(imagen,user,tax,fecha,longitud,latitud,comentario);
+
         }
-        catch(NullPointerException e){
+        catch(RuntimeException e){
             System.out.println(e.getMessage());
+            return "redirect:/home/reportObservation/error";
         }
+
 
         return "redirect:/home";
     }
 
-    @GetMapping("home/reportObservation/hola")
+    @GetMapping("/home/reportObservation")
+    public String makeObservation(){
+        return "observationPage";
+    }
+
+    @GetMapping("home/reportObservation/error")
     public String metodo(){
-        return "hola";
+        return "UserTaxonNotFound";
     }
 }

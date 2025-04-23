@@ -1,224 +1,148 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>NaturalistGimmick</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            width: 100%;
+            background-color: #f0f4f2;
+        }
+
+        header {
+            background-color: #2e7d32;
+            color: white;
+            padding: 20px 40px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .banner {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2em;
+            margin: 60px 0 20px;
+            color: #2e7d32;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            padding: 40px 80px;
+        }
+
+        .feature-card {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+            color: #333;
+        }
+
+        .feature-card img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #2e7d32;
+        }
+
+        .feature-card p {
+            font-size: 1em;
+            margin-bottom: 25px;
+        }
+
+        .feature-card button {
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .feature-card button:hover {
+            background-color: #1b5e20;
+        }
+
+        .footer-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            margin-top: 60px;
+        }
+
+        .playground {
+            height: 650px;
+            background-color: #fff9e6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            color: #333;
+        }
+    </style>
 </head>
-<style>
-    .search-box {
-        border-width: 1px;
-
-    }
-    body, html {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-    }
-    .row{
-        display: flex;
-        flex-direction: row;
-        position: absolute;
-        top: 0;
-        left: 0;
-
-
-        width: 1820px;
-        justify-content: center;
-        align-content: center;
-        align-items: center;
-        padding: 30px 50px;
-
-
-        background-color: darkgreen;
-        color: aliceblue;
-
-    }
-
-    .button{
-        transition-duration: 0.5s;
-        border-radius: 6px;
-        color: black;
-        font-family: "Corbel Light", cursive;
-        font-weight: bold;
-        font-size: 15px;
-        background-color: white;
-        padding: 17px 21px;
-        border: none;
-
-        align-self: flex-end;
-    }
-    .button:hover{
-        background-color: black;
-
-        color: white;
-
-    }
-    .block1 {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        padding: 50px 30px;
-        width: 500px;
-        min-height: 600px;
-
-        background-color: darkgreen;
-        color: aliceblue;
-
-        position: absolute;
-        left: 300px;
-        top: 700px;
-
-
-        border-style: solid;
-        border-radius: 15px;
-        border-color: black;
-    }
-    .block2 {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        padding: 50px 30px;
-        width: 500px;
-        min-height: 600px;
-
-        background-color: darkgreen;
-        color: aliceblue;
-
-        position: absolute;
-        right: 300px;
-        top: 700px;
-
-        border-style: solid;
-        border-radius: 15px;
-        border-color: black;
-    }
-
-    .center {
-        display: flex;
-        position: relative;
-        top: 500px;
-        width: 100vw;
-        align-items: center;
-        justify-content: center;
-    }
-    .image{
-        position: absolute;
-        top: 60px;
-        left: 0;
-        width: 100vw;
-        height: 400px;
-        object-fit: cover;
-    }
-    .image2{
-        position: absolute;
-        top: 1500px;
-        width: 100vw;
-        height: 400px;
-        object-fit: cover;
-    }
-
-    .playground{
-        position: absolute;
-        top: 1900px;
-        left: 0;
-        width: 100vw;
-        height: 650px;
-        background-color: beige;
-    }
-    .text{
-        display: flex;
-        position: absolute;
-        top: -12px;
-        left: 30px;
-        font-family: "Corbel Light", cursive;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    }
-    .textstyle1{
-        font-family: "Corbel Light",cursive;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-        text-align: justify;
-    }
-    .instructions{
-        color: black;
-        font-size: 50px;
-        font-weight: bold;
-    }
-    .infotext{
-        font-size: 20px;
-    }
-    .resize{
-        width: 100px;
-        height: 100px;
-    }
-    .top{
-        position: absolute;
-        top: -3px;
-        background-color: white;
-        width: 500px;
-        padding: 29px 29px;
-
-        border-style: solid;
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
-        border-color: black;
-    }
-
-</style>
-
-<!--los divs son contenedores, van dentro del body, solo un body -->
-
 <body>
-    <div class = "row">
-        <h1 class = "text"> Naturalist CR </h1>
-    </div>
 
-    <div class = "center">
-        <h1 class = "textstyle1 instructions"> Que puedes hacer en Naturalist CR?</h1>
-    </div>
+<header>
+    <h1>Naturalist CR</h1>
+</header>
 
-    <div class = block1>
-        <div class = "top"></div>
-        <h1 class = "textstyle1"> Observar </h1>
-        <img src="http://localhost:8080/identificar.png" class ="resize" alt ="id">
+<img src="http://localhost:8080/si.jpg" class="banner" alt="banner"/>
 
-        <h2 class = "textstyle1 infotext"> ¿Te has encontrado con una criatura única en la naturaleza costarricense? ¡Queremos saberlo! Costa Rica es hogar de una increíble biodiversidad, y tu observación podría ser invaluable para aprender más sobre nuestros ecosistemas. Al compartir tu avistamiento en nuestro sitio web, no solo ayudas a
-            enriquecer el conocimiento de nuestra fauna, sino que también participas en la conservación de estos maravillosos seres.</h2>
+<h2 class="section-title">¿Qué puedes hacer en Naturalist CR?</h2>
 
-        <form th:action = "@{home/reportObservation}" method = "get">
-            <button class="button"> Report an observation! </button>
+<section class="features">
+    <div class="feature-card">
+        <img src="http://localhost:8080/identificar.png" alt="Identificar">
+        <h2>Observar</h2>
+        <p>
+            ¿Te has encontrado con una criatura única en la naturaleza costarricense? ¡Queremos saberlo! Tu observación puede enriquecer el conocimiento y contribuir a la conservación de nuestra biodiversidad.
+        </p>
+        <form th:action="@{home/reportObservation}" method="get">
+            <button>Reportar un avistamiento</button>
         </form>
     </div>
-    <div class = block2>
-        <div class = "top"></div>
-        <h1 class = "textstyle1"> Identificar </h1>
-        <img src="http://localhost:8080/observar.png" class = "resize" alt ="obs">
 
-        <h2 class = "textstyle1 infotext"> ¿Te apasiona la biodiversidad de Costa Rica? ¡Esta es tu oportunidad para contribuir! Navega por las publicaciones de avistamientos de animales en nuestra página y ayúdanos a identificar las especies correctamente.
-            Cada avistamiento es una ventana a la rica fauna de nuestro país, y tu conocimiento puede ser clave para asegurar que se reconozcan las especies de manera precisa.
-            Si ves un avistamiento que sabes qué especie es, ¡deja tu comentario y comparte tu conocimiento!</h2>
-
-        <form th:action = "@{home/helpIdentify}" method = "get">
-            <button class = "button"> Help with identifications!</button>
+    <div class="feature-card">
+        <img src="http://localhost:8080/observar.png" alt="Observar">
+        <h2>Identificar</h2>
+        <p>
+            ¿Te apasiona la biodiversidad de Costa Rica? Revisa los avistamientos y ayuda a identificar especies. Tu conocimiento puede marcar la diferencia en la precisión de nuestras observaciones.
+        </p>
+        <form th:action="@{home/helpIdentify}" method="get">
+            <button>Ayudar a identificar</button>
         </form>
-
     </div>
-    <img src="http://localhost:8080/si.jpg" class = "image" alt="banner"/>
-    <img src="http://localhost:8080/panda.webp" class = "image2" alt ="banner2"/>\
-    <div class = "playground">
+</section>
 
+<img src="http://localhost:8080/panda.webp" class="footer-image" alt="footer image"/>
 
-    </div>
-    <!--<div class = "center">
-        <h1> Naturalist Gimmick</h1>
-        <form th:action="@{search}" method = "get" class = "search-box" >
-            <label>
-                <input type= "text" name = "query" placeholder="Search something...">
-            </label>
-            <button> Search </button>
-        </form>
-    </div>-->
+<div class="playground">
+    Área interactiva próximamente...
+</div>
+
 </body>
 </html>
