@@ -19,7 +19,7 @@
     }
 
     .background {
-        background-image: url("http://localhost:8080/lizard.jpg");
+        background-image: url("http://localhost:8080/pajaros.jpg");
         background-size: cover;
         background-position: center;
         height: 100vh;
@@ -106,35 +106,23 @@
 </style>
 
 <body>
-    <div class = "background">
-        <div class = "feature-card">
-            <img th:src="@{http://localhost:8080//imagenes/{url}(url=${url})}" alt = "animal"/>
-            <form th:action = "@{/home/helpIdentify/makeId}" method = "post">
-                <h3> Taxon definido como: <span th:text="${taxon}"></span> </h3>
-                <br>
-                <input type = "text" name = "taxon_identificado" id = "ti" placeholder="Taxon identificado" required>
-                <br>
-                <input type = "date" name = "fecha" required>
-                <br>
-                <input type = "text" name = "username" id = "name" placeholder = "Nombre completo" required>
-                <br>
-                <input type = "hidden" name = "obs_id" th:value = "${obs_id}">
-                <br>
-                <button id = "button" disabled> submit </button>
-
-            </form>
-        </div>
+<div class = "background">
+    <div class = "feature-card">
+        <img th:src="@{http://localhost:8080//imagenes/{url}(url=${o.getImage().getUrl()})}" alt = "animal"/>
+        <form th:action = "@{/home/showAll/editObservation}" method = "post">
+            <h2> Taxon definido como: <span th:text="${o.getTaxon().getNombre()}"></span> </h2>
+            <input type = text name = "nuevo-taxon" disabled>
+            <h2> Identificado en: <span th:text="${o.getFecha()}"></span> </h2>
+            <input type = date name = "nueva-fecha" disabled>
+            <h2> En el lugar: <span th:text="${o.getLatitud()}"></span> y <span th:text="${o.getLongitud()}"></span></h2>
+            <input type = file name = "nueva-imagen" disabled>
+            <button>submit</button>
+        </form>
     </div>
-
+</div>
 </body>
 <script>
-    const name = document.getElementById("name");
-    const button = document.getElementById("button")
-    function verifyName(){
-        const nameValue = name.value.trim();
-        button.disabled = !(nameValue.split(" ").length === 3)
-    }
 
-    name.addEventListener("input",verifyName)
 </script>
 </html>
+

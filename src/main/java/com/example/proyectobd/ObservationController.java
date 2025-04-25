@@ -7,6 +7,7 @@ import com.example.proyectobd.Model.User;
 import com.example.proyectobd.Service.ObservationService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -62,5 +63,24 @@ public class ObservationController {
     @GetMapping("home/reportObservation/error")
     public String metodo(){
         return "UserTaxonNotFound";
+    }
+
+    @GetMapping("home/showAll")
+    public String showAll(Model model){
+        model.addAttribute("Si",0);
+        model.addAttribute("observaciones",observationService.getAllObservations());
+        return "identificationPage";
+    }
+    @GetMapping("home/showAll/editObservation")
+    public String showObservation(@RequestParam("id") Long obs_id, Model model){
+        Observacion obs = observationService.getObservationByID(obs_id);
+        model.addAttribute("o",obs);
+        return "observationEPage";
+    }
+
+    @PostMapping("home/showAll/editObservation")
+    public void editObservation(){
+        //recibir todos los parametros, los paso todos al service para ahi la logica y ya queda listo solo faltaria probarlo que se cambie
+        //las varas bien
     }
 }

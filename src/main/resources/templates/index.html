@@ -141,7 +141,18 @@
 <img src="http://localhost:8080/panda.webp" class="footer-image" alt="footer image"/>
 
 <div class="playground">
-    Área interactiva próximamente...
+    <form th:action = "@{home/showAll}" method="get">
+        <button> Editar </button>
+    </form>
+    <form th:action = "@{home/showAll}" method="get">
+        <button> Liste todas las observaciones  </button>
+    </form>
+    <form th:action = "@{home/showAll}" method="get">
+        <button> taxonomía de las observaciones </button>
+    </form>
+    <form th:action = "@{home/showAll}" method="get">
+        <button> informe propuesto </button>
+    </form>
 </div>
 
 </body>

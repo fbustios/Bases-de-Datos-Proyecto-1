@@ -74,6 +74,15 @@
     input[type="hidden"] {
         display: none;
     }
+
+    td.form-buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+    td.form-buttons form {
+        margin: 0;
+    }
 </style>
 
 <body>
@@ -84,11 +93,19 @@
                     <td th:text = "${o.getUser().getNombre()}"></td>
                     <td th:text = "${o.getTaxon().getNombre()}"></td>
                     <td th:text = "${o.getComentario()}"> </td>
-                    <td>
-
-                        <form th:action = "@{/home/helpIdentify/makeId}">
+                    <td class = "form-buttons">
+                        <form th:if = "${Si == 1}" th:action = "@{/home/helpIdentify/makeId}">
                             <input type = "hidden" name = "id" th:value = "${o.getId()}">
                             <button>Asignar identificación</button>
+                        </form>
+                        <form th:if = "${Si == 0}" th:action = "@{/home/showAll/editObservation}">
+                            <input type = "hidden" name = "id" th:value = "${o.getId()}">
+                            <button>Editar</button>
+                        </form>
+                        <br>
+                        <form th:if = "${Si == 0}" th:action = "@{/home/showAll/identifications}">
+                            <input type = "hidden" name = "id" th:value = "${o.getId()}">
+                            <button>Editar identificaciones</button>
                         </form>
                     </td>
 

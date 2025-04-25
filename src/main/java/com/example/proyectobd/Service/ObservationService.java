@@ -19,6 +19,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -69,5 +70,24 @@ public class ObservationService {
         user.addObservacion(nuevaObservacion);
         user.addImage(img);
         addObservation(nuevaObservacion);
+    }
+
+    public void updateObservation(MultipartFile imagen, User user, Taxon tax, LocalDate fecha, String longitud, String latitud, String comentario, Observacion obs){
+        //falta ver que valores entran no nulos
+        Image img = addImage(imagen,user,tax,longitud,latitud,fecha);
+        obs.setComentario(comentario);
+        obs.setFecha(fecha);
+        obs.setLongitud(longitud);
+        obs.setLatitud(latitud);
+        obs.setImage(img);
+        obs.setTaxon(tax);
+        observationRepository.save(obs);
+
+    }
+    public Observacion getObservationByID(Long id){
+        return observationRepository.findById(id).get();  //nunca deberia dar nulo, no hace falta chequear
+    }
+    public List<Observacion> getAllObservations(){
+        return observationRepository.findAll();
     }
 }

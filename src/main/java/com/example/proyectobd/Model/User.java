@@ -1,5 +1,6 @@
 package com.example.proyectobd.Model;
 
+import com.example.proyectobd.IdentificationController;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,6 +40,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Image> imagenes = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Identification> identifications = new ArrayList<>();
+
     public void addObservacion(Observacion o) {
         observaciones.add(o);
         o.setUser(this);
@@ -47,5 +51,9 @@ public class User {
     public void addImage(Image img){
         imagenes.add(img);
         img.setUser(this);
+    }
+    public void addIdentificacion(Identification o) {
+        identifications.add(o);
+        o.setUser(this);
     }
 }
