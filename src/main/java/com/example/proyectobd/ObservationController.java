@@ -79,8 +79,22 @@ public class ObservationController {
     }
 
     @PostMapping("home/showAll/editObservation")
-    public void editObservation(){
-        //recibir todos los parametros, los paso todos al service para ahi la logica y ya queda listo solo faltaria probarlo que se cambie
-        //las varas bien
+    public String editObservation(@RequestParam(name = "nuevo-taxon", required = false) String taxon,
+                                @RequestParam(name = "fecha", required = false)@DateTimeFormat(pattern = "dd/mm/yyyy")  LocalDate fecha,
+                                @RequestParam(name = "nueva-imagen", required = false) MultipartFile img,
+                                @RequestParam(name = "nuevo-comentario", required = false) String comentario,
+                                @RequestParam(name = "latitud", required = false) String latitud,
+                                  @RequestParam(name = "longitud", required = false) String longitud,
+                                @RequestParam("id") Long id){
+        if(taxon == null){
+            System.out.println("hola");
+            //observationService.updateObservation(img,);
+        }
+        Observacion o = observationService.getObservationByID(id);
+        o.setComentario(comentario);
+
+        return "redirect:/home/showAll";
     }
+
+    //faltan consultas
 }

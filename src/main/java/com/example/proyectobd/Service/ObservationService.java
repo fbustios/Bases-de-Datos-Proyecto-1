@@ -74,13 +74,14 @@ public class ObservationService {
 
     public void updateObservation(MultipartFile imagen, User user, Taxon tax, LocalDate fecha, String longitud, String latitud, String comentario, Observacion obs){
         //falta ver que valores entran no nulos
-        Image img = addImage(imagen,user,tax,longitud,latitud,fecha);
+
         obs.setComentario(comentario);
         obs.setFecha(fecha);
         obs.setLongitud(longitud);
         obs.setLatitud(latitud);
-        obs.setImage(img);
         obs.setTaxon(tax);
+        Image img = addImage(imagen,user,tax,longitud,latitud,fecha);
+        obs.setImage(img);
         observationRepository.save(obs);
 
     }

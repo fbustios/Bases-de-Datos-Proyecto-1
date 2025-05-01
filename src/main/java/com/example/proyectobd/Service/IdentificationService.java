@@ -27,6 +27,7 @@ public class IdentificationService {
 
     public void reportIdentification(Identification ide){
         ide.getUser().addIdentificacion(ide);
+        ide.getObservacion().addIdentification(ide);
         identificationRepository.save(ide);
     }
 
