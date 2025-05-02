@@ -8,6 +8,7 @@ import com.example.proyectobd.Repositories.ImageRepository;
 import com.example.proyectobd.Repositories.ObservationRepository;
 import com.example.proyectobd.Repositories.TaxonRepository;
 import com.example.proyectobd.Repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,6 +21,7 @@ import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -64,6 +66,7 @@ public class ObservationService {
         }
         return img;
     }
+
     public void reportObservation(MultipartFile imagen, User user, Taxon tax, LocalDate fecha, String longitud, String latitud, String comentario){
         Image img = addImage(imagen,user,tax,longitud,latitud,fecha);
         Observacion nuevaObservacion = new Observacion(latitud,longitud,user,fecha,tax,img,comentario);
@@ -72,16 +75,28 @@ public class ObservationService {
         addObservation(nuevaObservacion);
     }
 
-    public void updateObservation(MultipartFile imagen, User user, Taxon tax, LocalDate fecha, String longitud, String latitud, String comentario, Observacion obs){
-        //falta ver que valores entran no nulos
+    @Transactional
+    public void updateObservation(MultipartFile imagen, User user, String tax, LocalDate fecha, String longitud, String latitud, String comentario, Observacion obs){
 
-        obs.setComentario(comentario);
-        obs.setFecha(fecha);
-        obs.setLongitud(longitud);
-        obs.setLatitud(latitud);
-        obs.setTaxon(tax);
-        Image img = addImage(imagen,user,tax,longitud,latitud,fecha);
-        obs.setImage(img);
+        if(!Objects.equals(comentario, "")) obs.setComentario(comentario);
+        if(fecha == null) obs.setFecha(fecha);
+        if(!Objects.equals(longitud,"")) obs.setLongitud(longitud);
+        if(!Objects.equals(latitud,"")) obs.setLatitud(latitud);
+        Taxon taxon = findTaxonByName(tax);
+        if(taxon != null) {
+            if(imagen.isEmpty()){
+                obs.setTaxon(taxon);
+                obs.getImage().setTaxon(taxon);
+            }else{
+                obs.setTaxon(taxon);
+                Image img = addImage(imagen,user,taxon,obs.getLongitud(),obs.getLatitud(),obs.getFecha());
+                obs.setImage(img);
+            }
+        }
+        if(taxon == null && !imagen.isEmpty()){
+            Image img = addImage(imagen,user,obs.getTaxon(),obs.getLongitud(),obs.getLatitud(),obs.getFecha());
+        }
+
         observationRepository.save(obs);
 
     }
@@ -90,5 +105,11 @@ public class ObservationService {
     }
     public List<Observacion> getAllObservations(){
         return observationRepository.findAll();
+    }
+
+    public void deleteObservation(Observacion o){
+        o.getUser().getObservaciones().remove(o);
+        observationRepository.delete(o);
+
     }
 }

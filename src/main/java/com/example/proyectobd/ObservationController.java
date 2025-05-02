@@ -73,9 +73,15 @@ public class ObservationController {
     }
     @GetMapping("home/showAll/editObservation")
     public String showObservation(@RequestParam("id") Long obs_id, Model model){
-        Observacion obs = observationService.getObservationByID(obs_id);
-        model.addAttribute("o",obs);
-        return "observationEPage";
+        try{
+            Observacion obs = observationService.getObservationByID(obs_id);
+            model.addAttribute("o",obs);
+            return "observationEPage";
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return "redirect:/home/reportObservation/error";
+        }
+
     }
 
     @PostMapping("home/showAll/editObservation")
@@ -86,15 +92,34 @@ public class ObservationController {
                                 @RequestParam(name = "latitud", required = false) String latitud,
                                   @RequestParam(name = "longitud", required = false) String longitud,
                                 @RequestParam("id") Long id){
-        if(taxon == null){
-            System.out.println("hola");
-            //observationService.updateObservation(img,);
-        }
+
         Observacion o = observationService.getObservationByID(id);
-        o.setComentario(comentario);
+        try {
+            observationService.updateObservation(img, o.getUser(), taxon, fecha,longitud,latitud,comentario,o);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());;
+        }
+
 
         return "redirect:/home/showAll";
     }
 
-    //faltan consultas
+    //1 consulta
+    @GetMapping("home/showAllObservationsC")
+    public String consulta(Model model){
+        model.addAttribute("observaciones",observationService.getAllObservations());
+        model.addAttribute("Si",3);
+        return "identificationPage";
+    }
+
+    @GetMapping("home/showAllObservationsC/see")
+    public String seeObservation(@RequestParam("id") Long id, Model model){
+        Observacion selected = observationService.getObservationByID(id);
+        model.addAttribute("obs_id",selected.getId());
+        model.addAttribute("taxon",selected.getTaxon().getNombre());
+        model.addAttribute("url",selected.getImage().getUrl());
+        model.addAttribute("Si",3);
+        model.addAttribute("o",selected);
+        return "searchResult";
+    }
 }

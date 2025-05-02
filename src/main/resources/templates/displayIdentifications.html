@@ -14,7 +14,7 @@
     }
 
     .esquinar {
-        background-image: url("http://localhost:8080/oso_polar.jpeg");
+        background-image: url("http://localhost:8080/oso-negro.jpg");
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
@@ -86,39 +86,28 @@
 </style>
 
 <body>
-    <div class = "esquinar">
-        <div class = "tabla-container">
-            <table>
-                <tr th:each = "o : ${observaciones}">
-                    <td th:text = "${o.getUser().getNombre()}"></td>
-                    <td th:text = "${o.getTaxon().getNombre()}"></td>
-                    <td th:text = "${o.getComentario()}"> </td>
-                    <td class = "form-buttons">
-                        <form th:if = "${Si == 1}" th:action = "@{/home/helpIdentify/makeId}">
-                            <input type = "hidden" name = "id" th:value = "${o.getId()}">
-                            <button>Asignar identificación</button>
-                        </form>
-                        <form th:if = "${Si == 0}" th:action = "@{/home/showAll/editObservation}">
-                            <input type = "hidden" name = "id" th:value = "${o.getId()}">
-                            <button>Editar</button>
-                        </form>
-                        <br>
-                        <form th:if = "${Si == 0}" th:action = "@{/home/showAll/identifications}">
-                            <input type = "hidden" name = "id" th:value = "${o.getId()}">
-                            <button>Editar identificaciones</button>
-                        </form>
-                        <form th:if = "${Si == 3}" th:action = "@{/home/showAllObservationsC/see}">
-                            <input type = "hidden" name = "id" th:value = "${o.getId()}">
-                            <button>Ver</button>
-                        </form>
-                    </td>
+<div class = "esquinar">
+    <div class = "tabla-container">
+        <table>
+            <tr th:each = "i : ${identificaciones}">
+                <td th:text = "${i.getUser().getNombre()}"></td>
+                <td th:text = "${i.getTaxon().getNombre()}"></td>
+                <td th:text = "${i.getFecha()}"></td>
+                <td class = "form-buttons">
 
-                </tr>
-            </table>
-        </div>
+                    <form th:if = "${Si == 1}" th:action = "@{/home/showAll/editIdentification}">
+                        <input type = "hidden" name = "id" th:value = "${i.getId()}">
+                        <button>Editar</button>
+                    </form>
+                    <br>
+                </td>
+
+            </tr>
+        </table>
     </div>
+</div>
 |   <script>
 
-    </script>
+</script>
 </body>
 </html>

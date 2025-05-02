@@ -38,6 +38,8 @@ public class IdentificationController {
         model.addAttribute("obs_id",selected.getId());
         model.addAttribute("taxon",selected.getTaxon().getNombre());
         model.addAttribute("url",selected.getImage().getUrl());
+        model.addAttribute("Si",1);
+
         return "searchResult";
     }
     @PostMapping("/home/helpIdentify/makeId")
@@ -60,12 +62,42 @@ public class IdentificationController {
         return "UserTaxonNotFound";
     }
 
-    /*
-    @GetMapping()
-    public String showAllIdentificationsById(){
-        return "hola";
+
+    @GetMapping("home/showAll/identifications")
+    public String showAllIdentifications(Model model, @RequestParam("id") Long id){
+
+        model.addAttribute("identificaciones",observationService.getObservationByID(id).getIdentifications());
+        model.addAttribute("Si",1);
+        return "displayIdentifications";
     }
-     */
+
+    @GetMapping("home/showAll/editIdentification")
+    public String showIdentification(Model model, @RequestParam("id") Long id){
+        try {
+            model.addAttribute("identificacion", identificationService.getIdentificationById(id));
+            return "editIdentification";
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return "redirect:/home/reportObservation/error";
+        }
+
+    }
+
+    @PostMapping("home/showAll/editIdentification")
+    public String editIdentification(@RequestParam(name = "nuevo-taxon", required = false) String taxon,
+                                     @RequestParam(name = "fecha", required = false) LocalDate fecha,
+                                     @RequestParam("id") Long id){
+        try{
+            identificationService.updateIdentification(identificationService.getIdentificationById(id),fecha,taxon);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "redirect:/home/reportObservation/error";
+        }
+
+        return "redirect:/home/showAll";
+    }
+
+
 
 
 }
