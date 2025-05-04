@@ -99,6 +99,10 @@
                         <input type = "hidden" name = "id" th:value = "${i.getId()}">
                         <button>Editar</button>
                     </form>
+                    <form th:if = "${Si == 1}" th:action = "@{/home/showAll/editIdentification/delete}" method = "post">
+                        <input type = "hidden" name = "id" th:value = "${i.getId()}">
+                        <button>Eliminar</button>
+                    </form>
                     <br>
                 </td>
 

@@ -103,6 +103,76 @@
         font-size: 1.2rem;
         color: #ddd;
     }
+    .esquinar {
+        background-image: url("http://localhost:8080/oso-negro.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        padding: 2rem;
+    }
+
+    .tabla-container {
+        width: 90%;
+        max-width: 900px;
+        background: rgba(26, 26, 26, 0.9);
+        border-radius: 16px;
+
+        overflow: hidden;
+        padding: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        color: white;
+    }
+
+    tr {
+        background-color: transparent;
+        transition: background-color 0.3s;
+    }
+
+    tr:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    td {
+        padding: 1rem;
+        border-bottom: 1px solid #444;
+        text-align: left;
+    }
+
+    button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    input[type="hidden"] {
+        display: none;
+    }
+
+    td.form-buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+    td.form-buttons form {
+        margin: 0;
+    }
 </style>
 
 <body>
@@ -126,9 +196,18 @@
             <h3 th:if = "${Si == 3}"> En: <span th:text="${o.getFecha()}"></span> </h3>
             <h3 th:if = "${Si == 3}"> En: <span th:text="${o.getLatitud()}"></span> y <span th:text="${o.getLongitud()}"></span> </h3>
             <h3 th:if = "${Si == 3}"> Por : <span th:text="${o.getUser().getNombre()}"></span> <span th:text="${o.getUser().getPrimero()}"></span>  <span th:text="${o.getUser().getSegundo()}"></span> </h3>
-
+            <h3 th:if = "${Si == 3}"> Dominio: <span th:text="${Dominio}"></span> </h3>
+            <h3 th:if = "${Si == 3}"> Reino: <span th:text="${Reino}"></span> </h3>
+                <div th:if = "${Si == 4}" class = "tabla-container" >
+                    <table>
+                        <tr th:each="i : ${order}">
+                            <td th:text = "${i.getNombre()}"></td>
+                        </tr>
+                    </table>
+                </div>
 
         </div>
+
     </div>
 
 </body>

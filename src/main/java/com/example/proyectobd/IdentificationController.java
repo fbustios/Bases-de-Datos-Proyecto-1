@@ -82,6 +82,11 @@ public class IdentificationController {
         }
 
     }
+    @PostMapping("home/showAll/editIdentification/delete")
+    public String deleteIdentification(@RequestParam("id")Long id){
+        identificationService.deleteIdentification(identificationService.getIdentificationById(id));
+        return "redirect:/home/showAll";
+    }
 
     @PostMapping("home/showAll/editIdentification")
     public String editIdentification(@RequestParam(name = "nuevo-taxon", required = false) String taxon,

@@ -20,6 +20,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -79,7 +80,7 @@ public class ObservationService {
     public void updateObservation(MultipartFile imagen, User user, String tax, LocalDate fecha, String longitud, String latitud, String comentario, Observacion obs){
 
         if(!Objects.equals(comentario, "")) obs.setComentario(comentario);
-        if(fecha == null) obs.setFecha(fecha);
+        if(fecha != null) obs.setFecha(fecha);
         if(!Objects.equals(longitud,"")) obs.setLongitud(longitud);
         if(!Objects.equals(latitud,"")) obs.setLatitud(latitud);
         Taxon taxon = findTaxonByName(tax);
@@ -111,5 +112,16 @@ public class ObservationService {
         o.getUser().getObservaciones().remove(o);
         observationRepository.delete(o);
 
+    }
+    public List<Taxon> getOrderByID(Taxon actual){
+        List<Taxon> Order = new ArrayList<>();
+        while(actual!= null){
+            Order.add(actual);
+            System.out.println(actual.getClass());
+            System.out.println(actual.getNombre());
+            actual= actual.getPadre();
+
+        }
+        return Order;
     }
 }

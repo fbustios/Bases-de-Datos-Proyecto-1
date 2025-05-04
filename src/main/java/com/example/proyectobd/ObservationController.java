@@ -12,15 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+
 
 import java.time.LocalDate;
 
-import java.util.UUID;
+import java.util.List;
+
 
 
 @Controller
@@ -120,6 +117,33 @@ public class ObservationController {
         model.addAttribute("url",selected.getImage().getUrl());
         model.addAttribute("Si",3);
         model.addAttribute("o",selected);
+        List<Taxon> order = observationService.getOrderByID(observationService.getObservationByID(id).getTaxon());
+        int size = order.size();
+        Taxon dom = order.get(size-1);
+        model.addAttribute("Dominio",dom.getNombre());
+        if(size > 1) model.addAttribute("Reino",order.get(size-2).getNombre());
+        else model.addAttribute("Reino","");
+
+        return "searchResult";
+    }
+    @PostMapping("/home")
+    public String deleteObservation(@RequestParam("id") Long id){
+        observationService.deleteObservation(observationService.getObservationByID(id));
+        return "redirect:home/showAll";
+    }
+
+    @GetMapping("home/showAllObservationsOrder")
+    public String consultOrder(Model model){
+        model.addAttribute("observaciones",observationService.getAllObservations());
+        model.addAttribute("Si",4);
+        return "identificationPage";
+    }
+    @GetMapping("home/showAllObservationsOrder/seeOrder")
+    public String seeOrder(Model model, @RequestParam("id") Long id){
+        List<Taxon> order = observationService.getOrderByID(observationService.getObservationByID(id).getTaxon());
+        model.addAttribute("url",observationService.getObservationByID(id).getImage().getUrl());
+        model.addAttribute("order",order);
+        model.addAttribute("Si",4);
         return "searchResult";
     }
 }

@@ -102,6 +102,10 @@
                             <input type = "hidden" name = "id" th:value = "${o.getId()}">
                             <button>Editar</button>
                         </form>
+                        <form th:if = "${Si == 0}" th:action = "@{/home}" method="post">
+                            <input type = "hidden" name = "id" th:value = "${o.getId()}">
+                            <button>Eliminar</button>
+                        </form>
                         <br>
                         <form th:if = "${Si == 0}" th:action = "@{/home/showAll/identifications}">
                             <input type = "hidden" name = "id" th:value = "${o.getId()}">
@@ -109,7 +113,11 @@
                         </form>
                         <form th:if = "${Si == 3}" th:action = "@{/home/showAllObservationsC/see}">
                             <input type = "hidden" name = "id" th:value = "${o.getId()}">
-                            <button>Ver</button>
+                            <button>Ver info</button>
+                        </form>
+                        <form th:if = "${Si == 4}" th:action = "@{/home/showAllObservationsOrder/seeOrder}">
+                            <input type = "hidden" name = "id" th:value = "${o.getId()}">
+                            <button>Ver taxonomia</button>
                         </form>
                     </td>
 
