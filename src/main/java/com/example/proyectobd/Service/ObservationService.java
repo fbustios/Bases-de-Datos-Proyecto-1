@@ -1,9 +1,6 @@
 package com.example.proyectobd.Service;
 
-import com.example.proyectobd.Model.Image;
-import com.example.proyectobd.Model.Observacion;
-import com.example.proyectobd.Model.Taxon;
-import com.example.proyectobd.Model.User;
+import com.example.proyectobd.Model.*;
 import com.example.proyectobd.Repositories.ImageRepository;
 import com.example.proyectobd.Repositories.ObservationRepository;
 import com.example.proyectobd.Repositories.TaxonRepository;
@@ -24,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class ObservationService {
@@ -123,5 +122,14 @@ public class ObservationService {
 
         }
         return Order;
+    }
+    public List<TaxonDTO> getBestContributors(){
+        List<Object[]> con = userRepository.getBestContributors();
+        return con.stream().map(row -> new TaxonDTO(
+                ((Number) row[0]).longValue(),
+                (String) row[1],
+                (String) row[2],
+                (String) row[3]
+        )).toList();
     }
 }

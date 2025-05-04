@@ -146,4 +146,10 @@ public class ObservationController {
         model.addAttribute("Si",4);
         return "searchResult";
     }
+
+    @GetMapping("home/showBestContributors")
+    public String consult(Model model){
+        model.addAttribute("cont",observationService.getBestContributors());
+        return "reportePropuesto";
+    }
 }
