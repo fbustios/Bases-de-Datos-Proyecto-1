@@ -17,13 +17,20 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query(
          value = """
             select u.id, u.nombre, u.primer_apellido, t.nombre
-            from modelos.user u
-            inner join reportes.observacion o on o.user_id = u.id
-            inner join reportes.identificacion i on i.user_id = u.id AND i.taxon_id = o.taxon_id
-            inner join modelos.taxon t on t.id = o.taxon_id
+            from (
+            	select o.user_id, o.taxon_id from reportes.observacion o 
+            
+            	union all
+            
+            	select i.user_id, i.taxon_id from reportes.identificacion i
+            
+            ) as acciones
+            inner join modelos.user u on u.id = acciones.user_id
+            inner join modelos.taxon t on t.id = acciones.taxon_id
             group by u.id, u.nombre, u.primer_apellido, t.nombre
             having count(*) > 3
             order by count(*) asc
+            
          """,
         nativeQuery = true
     )
