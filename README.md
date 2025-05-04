@@ -181,3 +181,6 @@ inner join modelos.taxon t on t.id = acciones.taxon_id
 group by u.id, u.nombre, u.primer_apellido, t.nombre
 having count(*) > 3
 order by count(*) asc
+
+[DocumentaciónProyecto1-FrancoBustios-AlexanderSalazar.pdf](https://github.com/user-attachments/files/20028469/DocumentacionProyecto1-FrancoBustios-AlexanderSalazar.pdf)
+
